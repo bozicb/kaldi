@@ -1,0 +1,14 @@
+PUT /kaldi
+{
+ "mappings" : {
+  "_default_" : {
+   "properties" : {
+    "customer_id" : {"type": "integer" },
+    "product_id" : {"type": "integer" },
+    "price" : { "type" : "double" },
+    "quantity" : { "type" : "integer" },
+    "delivered" : { "type": "date", "format": "yyyy-MM-dd HH:mm:ss:ms+ms" }
+   }
+  }
+ }
+}
