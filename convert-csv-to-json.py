@@ -59,7 +59,7 @@ class CSV2JSON:
                             "format": "dd-MM-yyyy HH:mm:ss"
                         },
                         "price": {
-                            "type": "double",
+                            "type": "double"
                         },
                         "customer_id": {
                             "type": "integer"
