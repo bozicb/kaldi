@@ -69,6 +69,9 @@ class CSV2JSON:
                         },
                         "quantity": {
                             "type": "integer"
+                        },
+                        "amount": {
+                            "type": "double"
                         }
                     }
                 }
@@ -84,8 +87,14 @@ class CSV2JSON:
             for i in self.df.index:
                 #   print(i)
                 coffee = self.df.loc[i].to_json()
+               # coffee['amount']=coffee['price']*coffee['quantity']
+               # print(coffee)
                 cc = json.loads(coffee)
-                #  print(cc)
+                if cc['price'] and cc['quantity']:
+                    cc['amount'] = format(cc['price']*cc['quantity'], '.2f')
+                else:
+                    cc['amount'] = 0
+                print(cc)
                 self.es.index(index=self.index, doc_type=self.index_doc_type, id=i, body=cc)
         except TransportError as e:
             print(e.info)
