@@ -14,18 +14,20 @@ df[,2] <- as.Date(dc[,5])
 startDate <- as.Date("20160911","%Y%m%d")
 endDate <- as.Date("20170620","%Y%m%d")
 df <- getDataFrame(df,startDate,endDate)
+head(df)
 
 # generate independent scores
 df1 <- getIndependentScore(df)
+head(df1)
 
 # show customer distribution
 drawHistograms(df1)
 
 # find customers with scores larger than 500 and 400
 S500<-df1[df1$Total_Score>500,]
-dim(S500)
+print(paste("Number of scores over 500:",toString(dim(S500)[1])))
 S400<-df1[df1$Total_Score>400,]
-dim(S400)
+print(paste("Number of scores over 400:",toString(dim(S400)[1])))
 
 # show distributions for recency, frequency, and monetary
 par(mfrow=c(1,3))
@@ -43,12 +45,12 @@ f <- c(2,5,8,10)
 m <- c(10,20,30,100)
 
 # show scores with breaks
-df2 <- getScoresWithBreaks(df,r,f,m)
+df2 <- getScoreWithBreaks(df,r,f,m)
 drawHistograms(df2)
 
 # show customers with scores over 500 and 400
 S500 <- df2[df2$Total_Score>500,]
-dim(S500)
+print(paste("Number of scores over 500:",toString(dim(S500)[1])))
 S400<-df2[df2$Total_Score>400,]
-dim(S400)
+print(paste("Number of scores over 400:",toString(dim(S500)[1])))
 
