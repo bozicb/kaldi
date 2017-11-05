@@ -15,7 +15,7 @@ getDataFrame <- function(df,startDate,endDate,tIDColName="ID",tDateColName="Date
     newdf <- cbind(newdf,Frequency)
 
     # Money
-    m <- as.data.frame(tapply(df[,tAmountColName],df[,tIDColName],sum))
+    m <- as.data.frame(tapply(df[,tAmountColName],df[,tIDColName],sum,na.rm=TRUE))
     Monetary <- m[,1]/Frequency
     newdf <- cbind(newdf,Monetary)
 
