@@ -1,5 +1,6 @@
 # use rfm-analysis functions
 source("rfm-analysis.R")
+source("customers.R")
 
 # import transactions
 dc <- read.csv("transactions.csv")
@@ -10,10 +11,12 @@ names <- c("ID","Date","Value")
 names(df) <- names
 df[,2] <- as.Date(dc[,5])
 
+cdf <- getDailyCustomerData(df)
+
 # set start and end dates and generate RFM scores
 startDate <- as.Date("20160911","%Y%m%d")
 endDate <- as.Date("20170620","%Y%m%d")
-df <- getDataFrame(df,startDate,endDate)
+df <- getDataFrame(cdf,startDate,endDate)
 head(df)
 
 # generate independent scores
