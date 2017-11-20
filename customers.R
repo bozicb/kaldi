@@ -1,12 +1,6 @@
 library(xts)
 
-getDailyCustomerData <- function() {
-
-    dc <- read.csv("transactions.csv")
-    df <- as.data.frame(cbind(dc[,1],as.Date(dc[,5]),dc[,3]*dc[,4]))
-    names <- c("ID","Date","Value")
-    names(df) <- names
-    df[,2] <- as.Date(dc[,5])
+getDailyCustomerData <- function(df) {
 
     new_df <- data.frame(Date=as.Date(character()),Value=double(),
                      ID=integer())
