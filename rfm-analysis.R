@@ -3,7 +3,7 @@ getDataFrame <- function(df,startDate,endDate,tIDColName="ID",tDateColName="Date
     df <- df[df[,tDateColName]>=startDate,]
     df <- df[df[,tDateColName]<=endDate,]
     newdf <- df[!duplicated(df[,tIDColName]),]
-
+    
     # Recency
     Recency <- as.numeric(difftime(endDate,newdf[,tDateColName],units="days"))
     newdf <- cbind(newdf,Recency)
@@ -21,7 +21,6 @@ getDataFrame <- function(df,startDate,endDate,tIDColName="ID",tDateColName="Date
 
     return(newdf)
 }
-
 
 getIndependentScore <- function(df,r=5,f=5,m=5) {
     if (r<=0 || f<=0 || m<=0) return
@@ -48,30 +47,29 @@ scoring <- function (df,column,r=5) {
 	rStart <-0
 	rEnd <- 0
 	for (i in 1:r){
-		rStart = rEnd+1
-		if (rStart> i*nr) next
-		if (i == r){
-			if(rStart<=len ) rEnd <- len else next
-		}else{
-			rEnd <- i*nr
-		}
-		score[rStart:rEnd]<- r-i+1
-		s <- rEnd+1
-		if(i<r & s <= len){
-			for(u in s: len){
-				if(df[rEnd,column]==df[u,column]){
-					score[u]<- r-i+1
-					rEnd <- u
-				}else{
-					break;
-				}
-			}	
-		}
+            rStart = rEnd+1
+            if (rStart> i*nr) next
+            if (i == r){
+		if(rStart<=len ) rEnd <- len else next
+            }else{
+		rEnd <- i*nr
+            }
+            score[rStart:rEnd]<- r-i+1
+            s <- rEnd+1
+            if(i<r & s <= len){
+		for(u in s: len){
+                    if(df[rEnd,column]==df[u,column]){
+			score[u]<- r-i+1
+			rEnd <- u
+                    }else{
+			break;
+                    }
+		}	
+            }
 	}
     }
     return(score)
 }
-
 
 getScoreWithBreaks <- function(df,r,f,m) {
     len = length(r)
